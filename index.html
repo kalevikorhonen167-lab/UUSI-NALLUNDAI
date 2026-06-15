@@ -93,8 +93,8 @@ button{
 }
 
 .company{
-    padding:12px;
-    margin:10px 0;
+    padding:25px;
+    margin:15px 0;
     background:var(--panel2);
     border-radius:10px;
 }
@@ -238,196 +238,73 @@ button{
         </div>
     </div>
 </div>
-<div id="budget-container" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; padding: 20px; font-family: sans-serif; background: #0f172a; color: white;">
-    
-    <!-- VARSINAINEN BUDJETTI -->
-    <div id="main-budget" style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #38bdf8;">
-        <h2 style="color: #38bdf8; margin-top: 0; text-align: center;">📊 VARSINAINEN BUDJETTI</h2>
+</div>
+<div id="budget" class="page">
+    <div id="budget-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 20px; font-family: sans-serif; background: #0f172a; color: white;">
         
-        <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 5px;">📈 TULOT</h3>
-        <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Olympialaiset</span> <b>8 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Piilotulot</span> <b>2 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja ATV</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi ATV</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija ATV</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri ATV</span> <b>27 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri ATV</span> <b>38 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä ATV</span> <b>38 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri ATV</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri ATV</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Sote-maksu</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Työttömyysmaksu</span> <b>24 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkimaksu</span> <b>48 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Moniosamaksu</span> <b>72 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>264 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Yritysvero</span> <b>60 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Osaketulot</span> <b>97 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Tapahtumat</span> <b>106 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lotto</span> <b>94 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Omaisuusvero</span> <b>86 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastotulo</span> <b>22 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Ministereiden omaisuusvero</span> <b>49 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Varastoyritystulot</span> <b>40 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>VEPOHO/PANOKSET ALV</span> <b>9 000</b></li>
-        </ul>
+        <div id="main-budget" style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #38bdf8;">
+            <h2 style="color: #38bdf8; text-align: center;">📊 VARSINAINEN</h2>
+            <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e;">📈 TULOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Olympialaiset 8 000</li><li>Piilotulot 2 000</li><li>Kirjastonhoitaja ATV 24 000</li><li>Poliisi ATV 24 000</li><li>Rajavartija ATV 24 000</li><li>Pankkiiri ATV 27 000</li><li>Lääkäri ATV 38 000</li><li>Kierrättäjä ATV 38 000</li><li>Pääministeri ATV 24 000</li><li>Puolustusministeri ATV 24 000</li><li>Sote-maksu 24 000</li><li>Työttömyysmaksu 24 000</li><li>Pankkimaksu 48 000</li><li>Moniosamaksu 72 000</li><li>Veppoho 264 000</li><li>Yritysvero 60 000</li><li>Osaketulot 97 000</li><li>Tapahtumat 106 000</li><li>Lotto 94 000</li><li>Omaisuusvero 86 000</li><li>Kirjastotulo 22 000</li><li>Ministereiden omaisuusvero 49 000</li><li>Varastoyritystulot 40 000</li><li>VEPOHO/PANOKSET ALV 9 000</li>
+            </ul>
+            <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; margin-top: 15px;">📉 MENOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Kirjastonhoitaja palkka 96 000</li><li>Poliisi palkka 96 000</li><li>Kierrättäjä palkka 120 000</li><li>Rajavartija palkka 96 000</li><li>Lääkäri palkka 120 000</li><li>Pankkiiri osuus 36 000</li><li>Veppoho 480 000</li><li>Pääministeri palkka 96 000</li><li>Puolustusministeri palkka 96 000</li><li>Panosten korjaus 20 000</li>
+            </ul>
+      <div style="margin-top: 30px; padding: 20px; background: #7f1d1d; border-radius: 12px; border: 2px solid #ef4444; text-align: center;">
+            <h3 style="margin: 0; color: #fca5a5;">⚠️ ALIJÄÄMÄ</h3>
+            <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0 0 0;">-67 000 €</p>
+        </div>
+    </div>
 
-        <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 5px; margin-top: 25px;">📉 MENOT</h3>
-        <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja palkka</span> <b>96 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi palkka</span> <b>96 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä palkka</span> <b>120 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija palkka</span> <b>96 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri palkka</span> <b>120 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri osuus</span> <b>36 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>480 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri palkka</span> <b>96 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri palkka</span> <b>96 000</b></li>
-            <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Panosten korjaus</span> <b>20 000</b></li>
-        </ul>
-
+        <div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24;">
+            <h2 style="color: #fbbf24; text-align: center;">📊 BUDJETTI 1</h2>
+            <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e;">📈 TULOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Olympialaiset 8 000</li><li>Piilotulot 2 000</li><li>Kirjastonhoitaja ATV 24 000</li><li>Poliisi ATV 24 000</li><li>Rajavartija ATV 24 000</li><li>Pankkiiri ATV 27 000</li><li>Lääkäri ATV 38 000</li><li>Kierrättäjä ATV 38 000</li><li>Pääministeri ATV 24 000</li><li>Puolustusministeri ATV 24 000</li><li>Sote-maksu 24 000</li><li>Työttömyysmaksu 24 000</li><li>Pankkimaksu 48 000</li><li>Moniosamaksu 72 000</li><li>Veppoho 264 000</li><li>Yritysvero 60 000</li><li>Osaketulot 97 000</li><li>Tapahtumat 106 000</li><li>Lotto 94 000</li><li>Omaisuusvero 86 000</li><li>Kirjastotulo 22 000</li><li>Ministereiden omaisuusvero 49 000</li><li>Varastoyritystulot 40 000</li><li>VEPOHO/PANOKSET ALV 9 000</li>
+            </ul>
+            <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; margin-top: 15px;">📉 MENOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Kirjastonhoitaja palkka 96 000</li><li>Poliisi palkka 96 000</li><li>Kierrättäjä palkka 120 000</li><li>Rajavartija palkka 96 000</li><li>Lääkäri palkka 120 000</li><li>Pankkiiri osuus 36 000</li><li>Veppoho 480 000</li><li>Pääministeri palkka 96 000</li><li>Puolustusministeri palkka 96 000</li><li>Panosten korjaus 20 000</li>
+            </ul>
+      <div style="margin-top: 30px; padding: 20px; background: #7f1d1d; border-radius: 12px; border: 2px solid #ef4444; text-align: center;">
+            <h3 style="margin: 0; color: #fca5a5;">⚠️ ALIJÄÄMÄ</h3>
+            <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0 0 0;">-67 000 €</p>
+        </div>
+    </div>
+        <div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24;">
+            <h2 style="color: #fbbf24; text-align: center;">📊 BUDJETTI 2</h2>
+            <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e;">📈 TULOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Olympialaiset 8 000</li><li>Piilotulot 2 000</li><li>Kirjastonhoitaja ATV 24 000</li><li>Poliisi ATV 24 000</li><li>Rajavartija ATV 24 000</li><li>Pankkiiri ATV 27 000</li><li>Lääkäri ATV 38 000</li><li>Kierrättäjä ATV 38 000</li><li>Pääministeri ATV 24 000</li><li>Puolustusministeri ATV 24 000</li><li>Sote-maksu 24 000</li><li>Työttömyysmaksu 24 000</li><li>Pankkimaksu 48 000</li><li>Moniosamaksu 72 000</li><li>Veppoho 264 000</li><li>Yritysvero 60 000</li><li>Osaketulot 97 000</li><li>Tapahtumat 106 000</li><li>Lotto 94 000</li><li>Omaisuusvero 86 000</li><li>Kirjastotulo 22 000</li><li>Ministereiden omaisuusvero 49 000</li><li>Varastoyritystulot 40 000</li><li>VEPOHO/PANOKSET ALV 9 000</li>
+            </ul>
+            <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; margin-top: 15px;">📉 MENOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Kirjastonhoitaja palkka 96 000</li><li>Poliisi palkka 96 000</li><li>Kierrättäjä palkka 120 000</li><li>Rajavartija palkka 96 000</li><li>Lääkäri palkka 120 000</li><li>Pankkiiri osuus 36 000</li><li>Veppoho 480 000</li><li>Pääministeri palkka 96 000</li><li>Puolustusministeri palkka 96 000</li><li>Panosten korjaus 20 000</li>
+            </ul>
         <div style="margin-top: 30px; padding: 20px; background: #7f1d1d; border-radius: 12px; border: 2px solid #ef4444; text-align: center;">
             <h3 style="margin: 0; color: #fca5a5;">⚠️ ALIJÄÄMÄ</h3>
             <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0 0 0;">-67 000 €</p>
         </div>
     </div>
 
-    <!-- Sarakkeet 2-4 -->
-    <div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24; font-family: sans-serif; color: white; width: 300px;">
-    <h2 style="color: #fbbf24; margin-top: 0; text-align: center;">📊 BUDJETTI 1</h2>
-    
-    <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 5px; font-size: 0.9em;">📈 TULOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Olympialaiset</span> <b>8 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Piilotulot</span> <b>2 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri ATV</span> <b>27 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Sote-maksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Työttömyysmaksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkimaksu</span> <b>48 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Moniosamaksu</span> <b>72 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>264 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Yritysvero</span> <b>60 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Osaketulot</span> <b>97 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Tapahtumat</span> <b>106 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lotto</span> <b>94 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Omaisuusvero</span> <b>86 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastotulo</span> <b>22 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Ministereiden omaisuusvero</span> <b>49 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Varastoyritystulot</span> <b>40 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>VEPOHO/PANOKSET ALV</span> <b>9 000</b></li>
-    </ul>
-
-    <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 5px; margin-top: 25px; font-size: 0.9em;">📉 MENOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri osuus</span> <b>36 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>480 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Panosten korjaus</span> <b>20 000</b></li>
-    </ul>
-</div>
-    <<div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24; font-family: sans-serif; color: white; width: 300px;">
-    <h2 style="color: #fbbf24; margin-top: 0; text-align: center;">📊 BUDJETTI 2</h2>
-    
-    <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 5px; font-size: 0.9em;">📈 TULOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Olympialaiset</span> <b>8 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Piilotulot</span> <b>2 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri ATV</span> <b>27 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Sote-maksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Työttömyysmaksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkimaksu</span> <b>48 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Moniosamaksu</span> <b>72 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>264 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Yritysvero</span> <b>60 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Osaketulot</span> <b>97 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Tapahtumat</span> <b>106 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lotto</span> <b>94 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Omaisuusvero</span> <b>86 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastotulo</span> <b>22 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Ministereiden omaisuusvero</span> <b>49 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Varastoyritystulot</span> <b>40 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>VEPOHO/PANOKSET ALV</span> <b>9 000</b></li>
-    </ul>
-
-    <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 5px; margin-top: 25px; font-size: 0.9em;">📉 MENOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri osuus</span> <b>36 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>480 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Panosten korjaus</span> <b>20 000</b></li>
-    </ul>
-</div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24; font-family: sans-serif; color: white; width: 300px;">
-    <h2 style="color: #fbbf24; margin-top: 0; text-align: center;">📊 BUDJETTI 3</h2>
-    
-    <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 5px; font-size: 0.9em;">📈 TULOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Olympialaiset</span> <b>8 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Piilotulot</span> <b>2 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri ATV</span> <b>27 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä ATV</span> <b>38 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri ATV</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Sote-maksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Työttömyysmaksu</span> <b>24 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkimaksu</span> <b>48 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Moniosamaksu</span> <b>72 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>264 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Yritysvero</span> <b>60 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Osaketulot</span> <b>97 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Tapahtumat</span> <b>106 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lotto</span> <b>94 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Omaisuusvero</span> <b>86 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastotulo</span> <b>22 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Ministereiden omaisuusvero</span> <b>49 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Varastoyritystulot</span> <b>40 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>VEPOHO/PANOKSET ALV</span> <b>9 000</b></li>
-    </ul>
-
-    <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 5px; margin-top: 25px; font-size: 0.9em;">📉 MENOT</h3>
-    <ul style="list-style: none; padding: 0; font-size: 0.9em;">
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kirjastonhoitaja palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Poliisi palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Kierrättäjä palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Rajavartija palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Lääkäri palkka</span> <b>120 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pankkiiri osuus</span> <b>36 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Veppoho</span> <b>480 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Pääministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Puolustusministeri palkka</span> <b>96 000</b></li>
-        <li style="display: flex; justify-content: space-between; padding: 4px 0;"><span>Panosten korjaus</span> <b>20 000</b></li>
-    </ul>
-</div>
+        <div style="background: #1e293b; padding: 20px; border-radius: 16px; border: 3px solid #fbbf24;">
+            <h2 style="color: #fbbf24; text-align: center;">📊 BUDJETTI 3</h2>
+            <h3 style="color: #22c55e; border-bottom: 2px solid #22c55e;">📈 TULOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Olympialaiset 8 000</li><li>Piilotulot 2 000</li><li>Kirjastonhoitaja ATV 24 000</li><li>Poliisi ATV 24 000</li><li>Rajavartija ATV 24 000</li><li>Pankkiiri ATV 27 000</li><li>Lääkäri ATV 38 000</li><li>Kierrättäjä ATV 38 000</li><li>Pääministeri ATV 24 000</li><li>Puolustusministeri ATV 24 000</li><li>Sote-maksu 24 000</li><li>Työttömyysmaksu 24 000</li><li>Pankkimaksu 48 000</li><li>Moniosamaksu 72 000</li><li>Veppoho 264 000</li><li>Yritysvero 60 000</li><li>Osaketulot 97 000</li><li>Tapahtumat 106 000</li><li>Lotto 94 000</li><li>Omaisuusvero 86 000</li><li>Kirjastotulo 22 000</li><li>Ministereiden omaisuusvero 49 000</li><li>Varastoyritystulot 40 000</li><li>VEPOHO/PANOKSET ALV 9 000</li>
+            </ul>
+            <h3 style="color: #ef4444; border-bottom: 2px solid #ef4444; margin-top: 15px;">📉 MENOT</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.8em;">
+                <li>Kirjastonhoitaja palkka 96 000</li><li>Poliisi palkka 96 000</li><li>Kierrättäjä palkka 120 000</li><li>Rajavartija palkka 96 000</li><li>Lääkäri palkka 120 000</li><li>Pankkiiri osuus 36 000</li><li>Veppoho 480 000</li><li>Pääministeri palkka 96 000</li><li>Puolustusministeri palkka 96 000</li><li>Panosten korjaus 20 000</li>
+            </ul>
+       <div style="margin-top: 30px; padding: 20px; background: #7f1d1d; border-radius: 12px; border: 2px solid #ef4444; text-align: center;">
+            <h3 style="margin: 0; color: #fca5a5;">⚠️ ALIJÄÄMÄ</h3>
+            <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0 0 0;">-67 000 €</p>
+        </div>
+    </div>
+    </div>
 </div>
 <div id="companies" class="page">
     <div class="card"><h2>🏢 Yritykset</h2></div>
@@ -448,7 +325,6 @@ button{
         color: #ffffff;
     }
 </style>
-
 <div id="laws" class="page">
     <div class="card">
         <h2>📜 NALLUNDAIN KOKONAISET LAIT</h2>
