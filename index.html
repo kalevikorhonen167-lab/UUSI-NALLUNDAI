@@ -441,21 +441,40 @@ Olemme kriisissä, joka koskee kaikkia. Kaiken jälkeen te kansalaiset velkaannu
 
 </div>
 </div>
+<div class="content">
+    <!-- Muut sivut... -->
+    
+    <!-- TÄMÄ ON ARKISTOSIVU -->
+    <div id="archive" class="page">
+        <div class="card">
+            <h2>📂 Arkisto</h2>
+            <input type="text" id="mainSearch" class="search-bar" placeholder="Syötä koodi (esim. 1234,)..." oninput="searchArchive()">
+            <div id="result-box" style="margin-top: 20px; display: none; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <div id="result-title" style="font-weight:bold; color: #4CAF50; margin-bottom: 5px;"></div>
+                <div id="result-text"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
-// 2. Arkiston tiedot (Globaali)
+// 2. Arkiston tiedot
 const archive = {
-    "TILI01": { title: "Valtion Rahasto", text: "Saldo: 5 000 000 €, Status: Aktiivinen" },
-    "TILI02": { title: "Kansallinen Reservi", text: "Saldo: 2 300 000 €, Status: Lukittu" }
-};
-// 1. Kirjautumissalasanat (Globaali)
+    "ODOOIK05": { title: "ODOTTAVAT OIKEUDENKÄYNNIT", text: "ASIA:PÄÄMINISTERIN KAUDELLA 2 TAPAHTUI EPÄILTY PÄÄMINISTERIN LOUKKAUS MYÖHEMMISSÄ SELVITYKSISSÄ ILMENI ETTÄ SEN AJAN PÄÄMINISTERI OLI KÄSKENYT VALEHTELEMAAN POLIISIA ASIALLA TÄSTÄ ASIASTA VELOITETTIIN 50 000 KALEVI PALMULTA , Status: ODOTTAA KÄSITTELYÄ NUMERO 5" },
+    "ODOOIK04": { title: "ODOTTAVATOIKEUDENKÄYNNIT", text: "ASIA:PÄÄMINISTERIN KAUDELLA 2 TAPAHTUI MIELENOSOITUS JA KOKOONTUMINEN JOTA POLIISIT TULIVAT HÄIRITSEMÄÄN ELIAH HALUSI OMIEN SANOJENSA MUKAAN KOKOONTUA KALEVI PALMUN KANSSA TÄSTÄ ASIASTA SAKOTETTIIN 50 000 ELIAH YLITALOLTA , Status: ODOTTAA KÄSITTELYÄ NUMERO 4" },
+    "ODOOIK02": { title: "ODOTTAVAT OIKEUDENKÄYNNIT", text: "ASIA:PÄÄMINISTERIN KAUDELLA 12 TAPAHTUI 2X LUVATONTA RAJANYLITYSTÄ JA 2X LUVATONTA RAJANYLITYSTÄ ILMAN PASSIA ALEKSI OLI TÄLLÖIN PUOLUSTUSMINISTERI, Status: ODOTTAA KÄSITTELYÄ NUMERO 2" },
+    "ODOTERO1": { title: "ODOTTAVAT TYÖPAIKKAEROT", text: "ASIA:KALEVI PALMU HAKEE EROA TEHTÄVÄSTÄÄN SYYSTÄ ETTÄ TILANNE RIISTÄYTYII KÄSISTÄ PUOLUSTUMINISTERIN OSALLA TÖNTEKIJÖIDEN TYÖT SEKOITTUIVAT TOISTENSA KANSSA JA PUOLUSTUSMINISTERIN VALINNAN JÄLKEEN KANSAN TYYTYMÄTTÖMYYS LISÄSI LAKKOA, Status: ENSIMMÄINEN KÄSITELVÄVÄ 1" },
+    "ODOOIK03": { title: "ODOTTAVAT OIKEUDENKÄYNNIT", text: "ASIA:EEMELI SUOMINEN PANKKIIRINA TEKI 3X TOISEN HAAVOITTAMISTA ASEELLA 2X LUVATONTA RAJANYLITYSTÄ 2X RAJAN YLITYSTÄ ASEENN KANSSA KÄYTTI ASETTA JULKISELLA PAIKALLA OSOITTELI ASEELLA JULKISELLA PAIKALLA,Status: EI KIIREINEN ODOTTAA KÄSITTELYÄ NUMERO 3" },
+    "ODOOIK06": { title: "ODOTTAVAT OIKEUDENKÄYNNIT", text: "ASIA:VILIUS LIUKKONEN RIKKOI PANKKIA LEMMY KEMPAKSEN SANOJEN MUKAAN SILLOIN KUN KALEVI PALMU JA MUUT OLIVAT POISSA LAATIKOITA OLI RIKKI JA PÖYTIÄ KAATUNUT TÄSTÄ LEMMY SYYTTI VILIUSTA,Status: KIIREINEN NUMERO 6" }
+}; 
+
+// 1. Kirjautumissalasanat
 const passwords = {
     "Pääministeri":"7986", "Poliisi":"8234", "Kierrättäjä":"3456",
     "Puolustusministeri":"9765", "Rajavartija":"9088", "Kirjastonhoitaja":"3537",
     "Pankkiiri":"8474", "Lääkäri":"9967", "Valtio":"1111"
 };
-
-
 
 // 3. Kirjautuminen
 function login(){
@@ -466,19 +485,17 @@ function login(){
         alert("Väärä salasana!");
         return;
     }
-    // Näytetään dashboard ja piilotetaan login
     document.getElementById("loginPage").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
-    show('home'); // Näytetään etusivu oletuksena
+    show('home');
 }
 
-// 4. Arkistohaku (Globaali, jotta toimii hakukentästä)
+// 4. Arkistohaku
 function searchArchive() {
     const input = document.getElementById("mainSearch");
     const box = document.getElementById("result-box");
     const title = document.getElementById("result-title");
     const text = document.getElementById("result-text");
-
     const value = input.value.toUpperCase().trim();
 
     if (archive[value]) {
@@ -493,9 +510,7 @@ function searchArchive() {
 // 5. Sivun vaihto
 function show(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
+    const page = document.getElementById(pageId);
+    if(page) page.classList.add('active');
 }
-</script>
-
-</body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
