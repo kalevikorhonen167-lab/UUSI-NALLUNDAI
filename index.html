@@ -277,9 +277,12 @@ Olemme kriisissä, joka koskee kaikkia. Kaiken jälkeen te kansalaiset velkaannu
             
             <div style="text-align: center; margin: 20px 0; padding: 15px; background: #0f172a; border-radius: 10px; border: 1px solid #22c55e;">
                 Haluatko ostaa osakkeita? 
-                <a href="https://amateurcoder316.github.io/OSAR/index.html" target="_blank" style="color: #22c55e; font-weight: bold; text-decoration: none; font-size: 1.1rem;">
-                    PAINA TÄSTÄ
-                </a>
+                <a href="https://amateurcoder316.github.io/OSAR/index.html" target="_blank" style="color: #22c55e; font-weight: bold; text-decoration: none;">PAINA TÄSTÄ</a>
+            </div>
+
+            <div style="background: #0f172a; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; color: #cbd5e1; border-left: 4px solid #facc15;">
+                <strong>⚠️ HUOMIO:</strong> Osta-napin painaminen on sitova ostopäätös. 
+                Summa varataan kassastasi, kun Valtio hyväksyy ostopyyntösi.
             </div>
             
             <div id="shop-items-container" style="display: flex; flex-direction: column; gap: 10px;">
@@ -685,176 +688,351 @@ NDP Laittaa hyvinvoinnin etusijalle ja sen että ihmisillä on varma tulevisuus<
             <h3>3. VHP</h3>
             <p>🌿 Vihreä Hyvinvointipuolue (VHP) – Osallistumisen ja kestävyyden puolueVihreä Hyvinvointipuolue (VHP) uskoo, että hyvinvointi ja yhteiskunnan vakaus syntyvät siitä, että jokainen kansalainen on aktiivinen osa yhteisöä ja osallistuu yhteiseen toimintaan. Puolueen ydin on siinä, että ihmiset kohtaavat ja jakavat resursseja keskenään.  Yhteisöllinen odotus: VHP:n mukaan kansalaisilla on yhteisöllinen odotus osallistua kaikkiin tapahtumiin. Puolue näkee yhteiset kohtaamiset paikkoina, joissa tieto vaihtuu ja yhteiskunnan rattaat pysyvät liikkeessä, ja siksi jokaisen läsnäolo on arvostettua.  Verotus: Kannustava ja selkeä: VHP ajaa 10 % ansiotuloveroa. Puolue haluaa, että ihmisillä on mahdollisimman paljon rahaa käytettävissä omaan arkeen, mikä mahdollistaa myös vaivattoman osallistumisen yhteiseen toimintaan.  Omaisuuden suoja: VHP vastustaa omaisuusveroa. Puolueen mielestä kerran verotettu omaisuus, kuten tavarat ja koti, kuuluu kansalaiselle eikä sitä tule verottaa uudelleen.  Kiertotalous ja resurssit: Tavaroiden hukkaaminen on moraalinen virhe. Kierrättäjät ovat arvostettuja ammattilaisia, jotka huolehtivat siitä, että resurssit pysyvät kierrossa ja yhteisö kukoistaa.  Terveys ja tieto: Lääkärit ja kirjastonhoitajat varmistavat, että kansalaiset pysyvät toimintakykyisinä ja viisaina, jotta jokainen on kykenevä osallistumaan yhteiskunnan tapahtumiin ja toimintaan. </p>
 <script>
+
 const passwords = {
+
     "Pääministeri": "7986", "Poliisi": "8234", "Kierrättäjä": "3456",
+
     "Puolustusministeri": "9765", "Rajavartija": "9088", "Kirjastonhoitaja": "3537",
+
     "Pankkiiri": "8474", "Lääkäri": "9967", "Valtio": "1111",
+
     "VEPOHO-YHTYMÄ": "1234", "OSARYHTYMÄ": "5678"
+
 };
 
+
+
 const defaultBalances = {
+
     "Pääministeri": 50000, "Puolustusministeri": 40000, "Pankkiiri": 30000,
+
     "Poliisi": 20000, "Lääkäri": 20000, "Kierrättäjä": 15000,
+
     "Kirjastonhoitaja": 10000, "Rajavartija": 20000, "Valtio": 20951000,
+
     "VEPOHO-YHTYMÄ": 50000, "OSARYHTYMÄ": 50000
+
 };
+
+
 
 let currentRole = "";
 
+
+
 // 1. Sivun lataus: Palauttaa kirjautumisen ja oikean sivun
+
 window.onload = function() {
+
     let savedRole = sessionStorage.getItem("loggedInRole");
+
     let savedPage = sessionStorage.getItem("activePage") || "home";
+
     
+
     if (savedRole) {
+
         currentRole = savedRole;
+
         document.getElementById("loginPage").style.display = "none";
+
         document.getElementById("dashboard").style.display = "block";
+
         
+
         let bal = localStorage.getItem("balance_" + currentRole) || defaultBalances[currentRole];
+
         document.getElementById("userBalance").textContent = parseInt(bal).toLocaleString('fi-FI');
+
         
+
         show(savedPage);
+
         checkStatus();
+
     }
+
 };
 
+
+
 function login() {
+
     const role = document.getElementById("role").value;
+
     const pass = document.getElementById("password").value;
+
     if (passwords[role] !== pass) return alert("Väärä salasana!");
 
+
+
     sessionStorage.setItem("loggedInRole", role);
+
     location.reload(); 
+
 }
+
+
 
 function show(pageId) {
+
     sessionStorage.setItem("activePage", pageId); 
+
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
     document.getElementById(pageId).classList.add('active');
+
     if (pageId === 'shopping') renderShop();
+
     if (pageId === 'admin-panel') showAdminPanel();
+
 }
+
+
 
 function checkStatus() {
+
     let status = localStorage.getItem("status_" + currentRole);
+
     if (status) {
+
         document.getElementById("notif-text").textContent = status;
+
         document.getElementById("notification-box").style.display = "block";
+
     }
+
 }
+
+
 
 function closeNotification() {
+
     document.getElementById("notification-box").style.display = "none";
+
     localStorage.removeItem("status_" + currentRole);
+
 }
+
+
 
 // KAUPAN HALLINTA
+
 function addProduct() {
+
     if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä tuotteita!");
+
     let name = document.getElementById("itemName").value;
+
     let desc = document.getElementById("itemDesc").value;
+
     let price = parseInt(document.getElementById("itemPrice").value);
+
     if (!name || !desc || isNaN(price)) return alert("Täytä kaikki kentät!");
 
+
+
     let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
+
     shopItems.push({ name, desc, price });
+
     localStorage.setItem("shopItems", JSON.stringify(shopItems));
+
     location.reload();
+
 }
+
+
 
 function deleteProduct(index) {
+
     if (currentRole !== "Valtio") return;
+
     let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
+
     shopItems.splice(index, 1);
+
     localStorage.setItem("shopItems", JSON.stringify(shopItems));
+
     location.reload();
+
 }
+
+
 
 function renderShop() {
+
     const container = document.getElementById("shop-items-container");
+
     if (!container) return;
+
     let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
+
     container.innerHTML = "";
+
     shopItems.forEach((item, index) => {
+
         container.innerHTML += `
+
             <div style="background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 10px; color: white;">
+
                 <strong>${item.name}</strong> - ${item.price.toLocaleString('fi-FI')}€
+
                 <p>${item.desc || ""}</p>
+
                 <button onclick="buy(${item.price}, '${item.name}')">Osta</button>
+
                 ${currentRole === "Valtio" ? `<button onclick="deleteProduct(${index})">Poista</button>` : ""}
+
             </div>`;
+
     });
+
 }
+
+
 
 function buy(price, itemName) {
+
     let bal = parseInt(localStorage.getItem("balance_" + currentRole)) || defaultBalances[currentRole];
+
     if (bal >= price) {
+
         let requests = JSON.parse(localStorage.getItem("pendingRequests") || "[]");
+
         requests.push({ role: currentRole, item: itemName, price: price });
+
         localStorage.setItem("pendingRequests", JSON.stringify(requests));
+
         alert("Ostopyyntö lähetetty!");
+
     } else {
+
         alert("Ei riittävästi varoja!");
+
     }
+
 }
+
+
 
 // HALLINTAPANEELI
+
 function showAdminPanel() {
+
     if (currentRole !== "Valtio") return;
+
     document.getElementById("admin-content").style.display = "block";
 
+
+
     const balContainer = document.getElementById("all-balances");
+
     balContainer.innerHTML = "<h3>📊 Saldot:</h3>";
+
     for (let role in passwords) {
+
         let bal = parseInt(localStorage.getItem("balance_" + role)) || defaultBalances[role];
+
         balContainer.innerHTML += `<div>${role}: ${bal.toLocaleString('fi-FI')}€</div>`;
+
     }
 
+
+
     const reqContainer = document.getElementById("request-list");
+
     let requests = JSON.parse(localStorage.getItem("pendingRequests") || "[]");
+
     reqContainer.innerHTML = "";
+
     requests.forEach((req, index) => {
+
         reqContainer.innerHTML += `
+
             <div style="background: #0f172a; padding: 10px; margin-top: 5px; border-radius: 5px;">
+
                 ${req.role}: ${req.item} (${req.price.toLocaleString('fi-FI')}€)
+
                 <button onclick="approveRequest(${index})">✅</button>
+
                 <button onclick="rejectRequest(${index})">❌</button>
+
             </div>`;
+
     });
+
 }
+
+
 
 function approveRequest(index) {
+
     let requests = JSON.parse(localStorage.getItem("pendingRequests"));
+
     let req = requests[index];
+
     let bal = parseInt(localStorage.getItem("balance_" + req.role)) || defaultBalances[req.role];
+
     localStorage.setItem("balance_" + req.role, bal - req.price);
+
     localStorage.setItem("status_" + req.role, "Osto hyväksytty: " + req.item);
+
     requests.splice(index, 1);
+
     localStorage.setItem("pendingRequests", JSON.stringify(requests));
+
     location.reload();
+
 }
+
+
 
 function rejectRequest(index) {
+
     let requests = JSON.parse(localStorage.getItem("pendingRequests"));
+
     let req = requests[index];
+
     localStorage.setItem("status_" + req.role, "Ostohylätty: " + req.item);
+
     requests.splice(index, 1);
+
     localStorage.setItem("pendingRequests", JSON.stringify(requests));
+
     location.reload();
+
 }
+
+
 
 function processTransaction(multiplier) {
+
     if (currentRole !== "Valtio") return;
+
     const role = document.getElementById("targetRole").value;
+
     const amount = parseInt(document.getElementById("globalAmount").value);
+
     const reason = document.getElementById("transactionReason").value;
+
     if (isNaN(amount) || amount <= 0 || !reason) return alert("Täytä kentät!");
 
+
+
     let currentBal = parseInt(localStorage.getItem("balance_" + role)) || defaultBalances[role];
+
     localStorage.setItem("balance_" + role, currentBal + (amount * multiplier));
+
     let msg = (multiplier > 0 ? "💰 SAIT MAKSUN: " : "⚠️ SAIT SAKON: ") + amount.toLocaleString('fi-FI') + "€. Syy: " + reason;
+
     localStorage.setItem("status_" + role, msg);
+
     location.reload();
+
 }
-</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+</script> 
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
