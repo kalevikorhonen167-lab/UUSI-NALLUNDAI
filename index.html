@@ -151,9 +151,11 @@ body {
 
 <div class="container">
 <div class="sidebar">
-<div class="menu-item" onclick="show('transfer-page')">💸 OMAISUUDEN SIIRTO</div>
-<div class="menu-item" onclick="show('shopping')">OSTOKSET</div>
+
+
 <div class="menu-item" onclick="show('home')">🏠 Etusivu</div>
+<div class="menu-item" onclick="show('transfer-page')">💸 Omaisuuden siirto</div>
+<div class="menu-item" onclick="show('shopping')">🛒Ostokset</div>
 <div class="menu-item" onclick="show('budget')">📊 Budjetti</div>
 <div class="menu-item" onclick="show('companies')">🏢 Yritykset</div>
 <div class="menu-item" onclick="show('laws')">📜 Lait</div>
@@ -174,8 +176,8 @@ body {
 
 <div style="background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #3b82f6;">
     <h3>💡 Kehitysideat Valtiolle</h3>
-    <input type="text" id="devSuggestion" placeholder="Kirjoita ideasi tähän..." style="width: 100%; margin-bottom: 10px;">
-    <button onclick="submitSuggestion()" style="background: #3b82f6; width: 100%; cursor: pointer;">Lähetä ehdotus</button>
+    <input type="text" id="devSuggestion" placeholder="Kirjoita ideasi tähän..." style="width: 100%; margin-bottom: 10px; color: black;">
+    <button onclick="submitSuggestion()" style="background: #3b82f6; width: 100%; cursor: pointer; color: white; border: none; padding: 10px;">Lähetä ehdotus</button>
 </div>
 
 <div id="suggestion-responses" style="margin-top: 20px;"></div>
@@ -225,12 +227,15 @@ body {
         <div id="admin-content" style="display: none; margin-top: 20px;">
             
             <div style="background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <h3>➕ Lisää tuote kauppaan</h3>
-                <input type="text" id="itemName" placeholder="Tuotteen nimi" style="width: 100%; padding: 8px; margin-bottom: 5px;">
-                <input type="text" id="itemDesc" placeholder="Tuotteen kuvaus" style="width: 100%; padding: 8px; margin-bottom: 5px;">
-                <input type="number" id="itemPrice" placeholder="Hinta (€)" style="width: 100%; padding: 8px; margin-bottom: 10px;">
-                <button onclick="addProduct()" style="width: 100%; padding: 10px; background: #3b82f6; color: white; border: none; cursor: pointer;">Lisää tuote</button>
-            </div>
+    <h3>➕ Lisää tuote kauppaan</h3>
+    <input type="text" id="itemName" placeholder="Tuotteen nimi" style="width: 100%; padding: 8px; margin-bottom: 5px;">
+    <input type="text" id="itemDesc" placeholder="Tuotteen kuvaus" style="width: 100%; padding: 8px; margin-bottom: 5px;">
+    <input type="number" id="itemPrice" placeholder="Hinta (€)" style="width: 100%; padding: 8px; margin-bottom: 5px;">
+    
+    <input type="text" id="itemCategory" placeholder="Kategoria (esim. Luvat, Kirjat...)" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+    
+    <button onclick="addProduct()" style="width: 100%; padding: 10px; background: #3b82f6; color: white; border: none; cursor: pointer;">Lisää tuote</button>
+</div>
 
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #334155;">
 
@@ -737,206 +742,17 @@ let currentRole = "";
 window.onload = function() {
     let savedRole = sessionStorage.getItem("loggedInRole");
     let savedPage = sessionStorage.getItem("activePage") || "home";
-    
     if (savedRole) {
         currentRole = savedRole;
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        
         let bal = localStorage.getItem("balance_" + currentRole) || defaultBalances[currentRole];
         document.getElementById("userBalance").textContent = parseInt(bal).toLocaleString('fi-FI');
-        
         show(savedPage);
-        showNotifications(); 
+        showNotifications();
+        renderSuggestions();
     }
 };
-
-// --- ILMOITUSJÄRJESTELMÄ ---
-function showNotifications() {
-    const container = document.getElementById("all-notifications");
-    if (!container) return;
-    let messages = JSON.parse(localStorage.getItem("user_notifs_" + currentRole) || "[]");
-    container.innerHTML = "";
-    messages.forEach((msg, index) => {
-        container.innerHTML += `
-            <div style="background: #312e81; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #6366f1;">
-                <p style="margin:0 0 10px 0;">${msg}</p>
-                <button onclick="dismissNotif(${index})" style="background: #3b82f6; cursor:pointer; color:white;">OK</button>
-            </div>`;
-    });
-}
-
-function dismissNotif(index) {
-    let messages = JSON.parse(localStorage.getItem("user_notifs_" + currentRole) || "[]");
-    messages.splice(index, 1);
-    localStorage.setItem("user_notifs_" + currentRole, JSON.stringify(messages));
-    showNotifications(); // Päivitetään ilman sivun latausta
-}
-
-// --- KEHITYSIDEAT (ID-pohjainen) ---
-function submitSuggestion() {
-    let text = document.getElementById("devSuggestion").value;
-    if (!text) return alert("Kirjoita ehdotus!");
-    let suggestions = JSON.parse(localStorage.getItem("devSuggestions") || "[]");
-    suggestions.push({ id: Date.now(), role: currentRole, text: text });
-    localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
-    alert("Ehdotus lähetetty Valtiolle!");
-    document.getElementById("devSuggestion").value = "";
-}
-
-function respondToSuggestion(id, response) {
-    let suggestions = JSON.parse(localStorage.getItem("devSuggestions") || "[]");
-    let index = suggestions.findIndex(s => s.id === id);
-    if (index > -1) {
-        let suggestion = suggestions[index];
-        let userNotifs = JSON.parse(localStorage.getItem("user_notifs_" + suggestion.role) || "[]");
-        userNotifs.push("Vastaus ideaasi (" + suggestion.text + "): " + response);
-        localStorage.setItem("user_notifs_" + suggestion.role, JSON.stringify(userNotifs));
-        suggestions.splice(index, 1);
-        localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
-        showAdminPanel(); // Päivitetään hallintapaneeli ilman reloadia
-        alert("Vastaus lähetetty!");
-    }
-}
-
-// --- OMAISUUDEN SIIRTO ---
-function submitTransferRequest() {
-    let to = document.getElementById("transferTo").value;
-    let amount = document.getElementById("transferAmount").value;
-    let reason = document.getElementById("transferReason").value;
-    if (!to || !amount || !reason) return alert("Täytä kaikki kentät!");
-
-    let requests = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
-    requests.push({ from: currentRole, to: to, amount: amount, reason: reason });
-    localStorage.setItem("moneyRequests", JSON.stringify(requests));
-    alert("Siirtopyyntö lähetetty!");
-    renderMyTransferRequests(); // Päivitetään lista ilman reloadia
-}
-
-function renderMyTransferRequests() {
-    const container = document.getElementById("my-transfer-requests");
-    if (!container) return;
-    let allRequests = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
-    let myRequests = allRequests.filter(req => req.from === currentRole);
-    
-    container.innerHTML = myRequests.length > 0 ? "<h4>⏳ Omat avoimet siirtopyynnöt:</h4>" : "";
-    myRequests.forEach((req) => {
-        container.innerHTML += `<div style="background: #334155; padding: 10px; margin-bottom: 5px; border-radius: 5px; color: #cbd5e1;">
-            ${req.to}: ${req.amount}€ (${req.reason})
-        </div>`;
-    });
-}
-
-// --- KAUPPA ---
-function addProduct() {
-    if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä tuotteita!");
-    let name = document.getElementById("itemName").value;
-    let desc = document.getElementById("itemDesc").value;
-    let price = parseInt(document.getElementById("itemPrice").value);
-    if (!name || !desc || isNaN(price)) return alert("Täytä kaikki kentät!");
-    let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
-    shopItems.push({ name, desc, price });
-    localStorage.setItem("shopItems", JSON.stringify(shopItems));
-    renderShop(); // Päivitetään kauppa ilman reloadia
-}
-
-function renderShop() {
-    const container = document.getElementById("shop-items-container");
-    if (!container) return;
-    let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
-    container.innerHTML = "";
-    shopItems.forEach((item) => {
-        container.innerHTML += `
-            <div style="background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 10px; color: white;">
-                <strong>${item.name}</strong> - ${item.price.toLocaleString('fi-FI')}€
-                <p>${item.desc || ""}</p>
-                <button onclick="buy(${item.price}, '${item.name}')">Osta</button>
-            </div>`;
-    });
-}
-
-function buy(price, itemName) {
-    let bal = parseInt(localStorage.getItem("balance_" + currentRole)) || defaultBalances[currentRole];
-    if (bal >= price) {
-        let requests = JSON.parse(localStorage.getItem("pendingRequests") || "[]");
-        requests.push({ role: currentRole, item: itemName, price: price });
-        localStorage.setItem("pendingRequests", JSON.stringify(requests));
-        alert("Ostopyyntö lähetetty!");
-    } else {
-        alert("Ei riittävästi varoja!");
-    }
-}
-
-// --- HALLINTA ---
-function show(pageId) {
-    sessionStorage.setItem("activePage", pageId); 
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    if (pageId === 'shopping') renderShop();
-    if (pageId === 'admin-panel') showAdminPanel();
-    if (pageId === 'transfer-page') renderMyTransferRequests();
-}
-
-function showAdminPanel() {
-    if (currentRole !== "Valtio") return;
-    document.getElementById("admin-content").style.display = "block";
-
-    const balContainer = document.getElementById("all-balances");
-    balContainer.innerHTML = "<h3>📊 Saldot:</h3>";
-    for (let role in passwords) {
-        let bal = parseInt(localStorage.getItem("balance_" + role)) || defaultBalances[role];
-        balContainer.innerHTML += `<div>${role}: ${bal.toLocaleString('fi-FI')}€</div>`;
-    }
-
-    const devContainer = document.getElementById("suggestion-responses");
-    if (devContainer) {
-        let suggestions = JSON.parse(localStorage.getItem("devSuggestions") || "[]");
-        devContainer.innerHTML = "<h4>Ideoiden hallinta:</h4>";
-        suggestions.forEach((s) => {
-            devContainer.innerHTML += `
-                <div style="margin-bottom:10px;">${s.role}: ${s.text} 
-                    <input type="text" id="resp_${s.id}" placeholder="Vastaus">
-                    <button onclick="respondToSuggestion(${s.id}, document.getElementById('resp_${s.id}').value)">Lähetä</button>
-                </div>`;
-        });
-    }
-
-    const transContainer = document.getElementById("money-request-list");
-    if (transContainer) {
-        let transRequests = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
-        transContainer.innerHTML = "<h4>⚖️ Siirtopyynnöt:</h4>";
-        transRequests.forEach((req, index) => {
-            transContainer.innerHTML += `
-                <div style="margin-bottom:5px;">
-                    ${req.from} -> ${req.to}: ${req.amount} (${req.reason})
-                    <button onclick="approveTransfer(${index})">✅</button>
-                    <button onclick="rejectTransfer(${index})">❌</button>
-                </div>`;
-        });
-    }
-}
-
-function approveTransfer(index) {
-    let requests = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
-    let req = requests[index];
-    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + req.from) || "[]");
-    notifs.push("✅ SIIRTO HYVÄKSYTTY: " + req.amount + " (Vastaanottaja: " + req.to + ")");
-    localStorage.setItem("user_notifs_" + req.from, JSON.stringify(notifs));
-    requests.splice(index, 1);
-    localStorage.setItem("moneyRequests", JSON.stringify(requests));
-    showAdminPanel(); // Päivitetään hallintapaneeli ilman reloadia
-}
-
-function rejectTransfer(index) {
-    let requests = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
-    let req = requests[index];
-    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + req.from) || "[]");
-    notifs.push("❌ SIIRTO HYLÄTTY: " + req.amount + " (" + req.reason + ")");
-    localStorage.setItem("user_notifs_" + req.from, JSON.stringify(notifs));
-    requests.splice(index, 1);
-    localStorage.setItem("moneyRequests", JSON.stringify(requests));
-    showAdminPanel(); // Päivitetään hallintapaneeli ilman reloadia
-}
 
 function login() {
     const role = document.getElementById("role").value;
@@ -945,4 +761,241 @@ function login() {
     sessionStorage.setItem("loggedInRole", role);
     location.reload(); 
 }
-</script>	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+function show(pageId) {
+    sessionStorage.setItem("activePage", pageId); 
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    if (pageId === 'shopping') renderShop();
+    if (pageId === 'admin-panel') showAdminPanel();
+    if (pageId === 'transfer-page') renderMyTransferRequests();
+    if (document.getElementById("suggestion-responses")) renderSuggestions();
+}
+
+// --- KAUPPA ---
+function addProduct() {
+    if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä tuotteita!");
+    let name = document.getElementById("itemName").value;
+    let desc = document.getElementById("itemDesc").value;
+    let price = parseInt(document.getElementById("itemPrice").value);
+    let cat = document.getElementById("itemCategory").value;
+    if (!name || !desc || isNaN(price) || !cat) return alert("Täytä kaikki kentät!");
+    
+    let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
+    shopItems.push({ id: Date.now(), name, desc, price, category: cat, isSoldOut: false });
+    localStorage.setItem("shopItems", JSON.stringify(shopItems));
+    
+    let cats = JSON.parse(localStorage.getItem("shopCategories") || '["Kirjat", "Luvat", "Koulutukset"]');
+    if (!cats.includes(cat)) { cats.push(cat); localStorage.setItem("shopCategories", JSON.stringify(cats)); }
+    renderShop();
+}
+
+function renderShop() {
+    const container = document.getElementById("shop-items-container");
+    if (!container) return;
+    let shopItems = JSON.parse(localStorage.getItem("shopItems") || "[]");
+    let cats = JSON.parse(localStorage.getItem("shopCategories") || '["Kirjat", "Luvat", "Koulutukset"]');
+    container.innerHTML = "";
+    cats.forEach(cat => {
+        let items = shopItems.filter(i => i.category === cat);
+        if (items.length > 0) {
+            container.innerHTML += `<h3 style="margin:20px 0; color:#22c55e;">${cat}</h3>`;
+            items.forEach(item => {
+                let style = item.isSoldOut ? "background:#450a0a;" : "background:#1e293b;";
+                container.innerHTML += `<div style="${style} padding:15px; border-radius:8px; margin-bottom:10px;">
+                    <strong>${item.name}</strong> - ${item.price}€<p>${item.desc}</p>
+                    <button onclick="${item.isSoldOut ? '' : 'buy('+item.price+', \''+item.name+'\')'}">${item.isSoldOut ? 'LOPPUUNMYYTY' : 'Osta'}</button>
+                    ${currentRole === "Valtio" ? `
+                        <button onclick="toggleSoldOut('${item.id}')">Tila</button>
+                        <button onclick="editItem('${item.id}')">Muokkaa</button>
+                        <button onclick="deleteItem('${item.id}')" style="background:red;">Poista</button>
+                    ` : ''}
+                </div>`;
+            });
+        }
+    });
+}
+
+function toggleSoldOut(id) {
+    let items = JSON.parse(localStorage.getItem("shopItems"));
+    items.find(i => i.id == id).isSoldOut = !items.find(i => i.id == id).isSoldOut;
+    localStorage.setItem("shopItems", JSON.stringify(items));
+    renderShop();
+}
+
+function editItem(id) {
+    let items = JSON.parse(localStorage.getItem("shopItems"));
+    let item = items.find(i => i.id == id);
+    item.name = prompt("Uusi nimi:", item.name) || item.name;
+    item.price = parseInt(prompt("Uusi hinta:", item.price) || item.price);
+    localStorage.setItem("shopItems", JSON.stringify(items));
+    renderShop();
+}
+
+function deleteItem(id) {
+    if(!confirm("Poistetaanko tuote?")) return;
+    let items = JSON.parse(localStorage.getItem("shopItems"));
+    localStorage.setItem("shopItems", JSON.stringify(items.filter(i => i.id != id)));
+    renderShop();
+}
+
+function buy(price, name) {
+    let bal = parseInt(localStorage.getItem("balance_" + currentRole)) || defaultBalances[currentRole];
+    if (bal >= price) {
+        let reqs = JSON.parse(localStorage.getItem("pendingRequests") || "[]");
+        reqs.push({ role: currentRole, item: name, price: price });
+        localStorage.setItem("pendingRequests", JSON.stringify(reqs));
+        alert("Ostopyyntö lähetetty!");
+    } else { alert("Ei riittävästi varoja!"); }
+}
+
+// --- OMAISUUSSIIRROT ---
+function submitTransferRequest() {
+    let to = document.getElementById("transferTo").value;
+    let amount = document.getElementById("transferAmount").value;
+    let reason = document.getElementById("transferReason").value;
+    if (!to || !amount || !reason) return alert("Täytä kaikki kentät!");
+    let reqs = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
+    reqs.push({ from: currentRole, to: to, amount: amount, reason: reason });
+    localStorage.setItem("moneyRequests", JSON.stringify(reqs));
+    document.getElementById("transferTo").value = "";
+    document.getElementById("transferAmount").value = "";
+    document.getElementById("transferReason").value = "";
+    alert("Siirtopyyntö lähetetty Valtiolle!");
+}
+
+function renderMyTransferRequests() { /* Lisäpaikka toiminnoille */ }
+
+// --- HALLINTA JA HYVÄKSYNNÄT ---
+function showAdminPanel() {
+    if (currentRole !== "Valtio") return;
+    document.getElementById("admin-content").style.display = "block";
+    const balC = document.getElementById("all-balances");
+    balC.innerHTML = "<h3>📊 Saldot:</h3>";
+    for (let r in passwords) {
+        let b = localStorage.getItem("balance_" + r) || defaultBalances[r];
+        balC.innerHTML += `<div>${r}: ${parseInt(b).toLocaleString()}€</div>`;
+    }
+    const transC = document.getElementById("money-request-list");
+    let reqs = JSON.parse(localStorage.getItem("moneyRequests") || "[]");
+    transC.innerHTML = "<h4>⚖️ Siirtopyynnöt:</h4>";
+    reqs.forEach((r, i) => transC.innerHTML += `<div>${r.from}->${r.to}: ${r.amount}€ 
+        <button onclick="approveTransfer(${i})">✅</button><button onclick="rejectTransfer(${i})">❌</button></div>`);
+    const shopC = document.getElementById("request-list");
+    let shopReqs = JSON.parse(localStorage.getItem("pendingRequests") || "[]");
+    shopC.innerHTML = "<h4>⏳ Odottavat ostopyynnöt:</h4>";
+    shopReqs.forEach((r, i) => shopC.innerHTML += `<div>${r.role}: ${r.item} (${r.price}€) 
+        <button onclick="approveShopReq(${i})">✅</button><button onclick="rejectShopReq(${i})">❌</button></div>`);
+}
+
+function approveTransfer(i) {
+    let reqs = JSON.parse(localStorage.getItem("moneyRequests"));
+    let r = reqs[i];
+    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + r.from) || "[]");
+    notifs.push("✅ SIIRTO HYVÄKSYTTY: " + r.amount + "€ (" + r.to + ")");
+    localStorage.setItem("user_notifs_" + r.from, JSON.stringify(notifs));
+    reqs.splice(i, 1);
+    localStorage.setItem("moneyRequests", JSON.stringify(reqs));
+    showAdminPanel();
+}
+
+function rejectTransfer(i) {
+    let reqs = JSON.parse(localStorage.getItem("moneyRequests"));
+    let r = reqs[i];
+    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + r.from) || "[]");
+    notifs.push("❌ SIIRTO HYLÄTTY: " + r.amount + "€ (" + r.reason + ")");
+    localStorage.setItem("user_notifs_" + r.from, JSON.stringify(notifs));
+    reqs.splice(i, 1);
+    localStorage.setItem("moneyRequests", JSON.stringify(reqs));
+    showAdminPanel();
+}
+
+function approveShopReq(i) {
+    let reqs = JSON.parse(localStorage.getItem("pendingRequests"));
+    let req = reqs[i];
+    let buyerBal = parseInt(localStorage.getItem("balance_" + req.role)) || defaultBalances[req.role];
+    localStorage.setItem("balance_" + req.role, buyerBal - req.price);
+    let valtioBal = parseInt(localStorage.getItem("balance_Valtio")) || defaultBalances["Valtio"];
+    localStorage.setItem("balance_Valtio", valtioBal + req.price);
+    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + req.role) || "[]");
+    notifs.push("✅ OSTOS HYVÄKSYTTY: " + req.item + " (-" + req.price + "€)");
+    localStorage.setItem("user_notifs_" + req.role, JSON.stringify(notifs));
+    reqs.splice(i, 1);
+    localStorage.setItem("pendingRequests", JSON.stringify(reqs));
+    showAdminPanel();
+}
+
+function rejectShopReq(i) {
+    let reqs = JSON.parse(localStorage.getItem("pendingRequests"));
+    let req = reqs[i];
+    let notifs = JSON.parse(localStorage.getItem("user_notifs_" + req.role) || "[]");
+    notifs.push("❌ OSTOS HYLÄTTY: " + req.item);
+    localStorage.setItem("user_notifs_" + req.role, JSON.stringify(notifs));
+    reqs.splice(i, 1);
+    localStorage.setItem("pendingRequests", JSON.stringify(reqs));
+    showAdminPanel();
+}
+
+// --- ILMOITUKSET ---
+function showNotifications() {
+    const container = document.getElementById("all-notifications");
+    if (!container) return;
+    let msgs = JSON.parse(localStorage.getItem("user_notifs_" + currentRole) || "[]");
+    container.innerHTML = "";
+    msgs.forEach((m, i) => container.innerHTML += `<div>${m} <button onclick="dismissNotif(${i})">OK</button></div>`);
+}
+
+function dismissNotif(i) {
+    let msgs = JSON.parse(localStorage.getItem("user_notifs_" + currentRole) || "[]");
+    msgs.splice(i, 1);
+    localStorage.setItem("user_notifs_" + currentRole, JSON.stringify(msgs));
+    showNotifications();
+}
+
+// --- KEHITYSIDEAT ---
+function submitSuggestion() {
+    let text = document.getElementById("devSuggestion").value;
+    if (!text) return alert("Kirjoita ensin idea!");
+    let suggestions = JSON.parse(localStorage.getItem("devSuggestions") || "[]");
+    suggestions.push({ from: currentRole, text: text, reply: "" });
+    localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
+    document.getElementById("devSuggestion").value = "";
+    alert("Ehdotus lähetetty Valtiolle!");
+    renderSuggestions();
+}
+
+function renderSuggestions() {
+    const container = document.getElementById("suggestion-responses");
+    if (!container) return;
+    let suggestions = JSON.parse(localStorage.getItem("devSuggestions") || "[]");
+    container.innerHTML = "<h4>Ideat ja vastaukset:</h4>";
+    suggestions.forEach((s, i) => {
+        let isAdmin = (currentRole === "Valtio");
+        container.innerHTML += `<div style="background: #2d3748; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+            <p><strong>${s.from}</strong>: ${s.text}</p>
+            ${s.reply ? `<p style="color: #3b82f6;"><em>Valtion vastaus: ${s.reply}</em></p>` : ""}
+            ${isAdmin ? `
+                <input type="text" id="reply-${i}" placeholder="Kirjoita vastaus..." style="width: 70%; color: black;">
+                <button onclick="sendReply(${i})">Lähetä vastaus</button>
+                <button onclick="deleteSuggestion(${i})" style="background: red;">Poista</button>
+            ` : ""}
+        </div>`;
+    });
+}
+
+function sendReply(i) {
+    let replyText = document.getElementById("reply-" + i).value;
+    if (!replyText) return alert("Kirjoita vastaus!");
+    let suggestions = JSON.parse(localStorage.getItem("devSuggestions"));
+    suggestions[i].reply = replyText;
+    localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
+    renderSuggestions();
+}
+
+function deleteSuggestion(i) {
+    let suggestions = JSON.parse(localStorage.getItem("devSuggestions"));
+    suggestions.splice(i, 1);
+    localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
+    renderSuggestions();
+}
+</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
