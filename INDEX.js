@@ -1,4 +1,4 @@
-<script>
+
 const passwords = {
     "Pääministeri": "7986", "Poliisi": "8234", "Kierrättäjä": "3456",
     "Puolustusministeri": "9765", "Rajavartija": "9088", "Kirjastonhoitaja": "3537",
@@ -293,4 +293,4 @@ function deleteSuggestion(i) {
     localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
     renderSuggestions();
 }
-</script>   
+  
