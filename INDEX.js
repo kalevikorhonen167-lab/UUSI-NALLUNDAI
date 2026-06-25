@@ -77,7 +77,7 @@ await setDoc(doc(db, "balances", role), { balance: amount });
 
 // ================= LOGIN =================
 
-async function login() {
+window.login = function () {
 const role = document.getElementById("role").value;
 const pass = document.getElementById("password").value;
 
@@ -85,9 +85,7 @@ if (passwords[role] !== pass) return alert("Väärä salasana!");
 
 sessionStorage.setItem("loggedInRole", role);
 location.reload();
-}
-
-window.login = login;
+};
 
 // ================= LOAD =================
 
@@ -114,7 +112,7 @@ renderSuggestions();
 
 // ================= NAV =================
 
-function show(pageId) {
+window.show = function (pageId) {
 sessionStorage.setItem("activePage", pageId);
 
 document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
@@ -122,13 +120,11 @@ document.getElementById(pageId).classList.add("active");
 
 if (pageId === "shopping") renderShop();
 if (pageId === "admin-panel") showAdminPanel();
-}
-
-window.show = show;
+};
 
 // ================= TRANSACTIONS =================
 
-async function processTransaction(multiplier) {
+window.processTransaction = async function (multiplier) {
 const reason = document.getElementById("transactionReason").value;
 const target = document.getElementById("targetRole").value;
 const amount = parseInt(document.getElementById("globalAmount").value);
@@ -146,14 +142,12 @@ await setBalance(target, bal - amount);
 }
 
 alert("Valmis!");
-}
-
-window.processTransaction = processTransaction;
+};
 
 // ================= SHOP =================
 
-async function addProduct() {
-if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä!");
+window.addProduct = async function () {
+if (currentRole !== "Valtio") return alert("Vain Valtio!");
 
 await addDoc(collection(db, "shopItems"), {
 name: itemName.value,
@@ -164,11 +158,9 @@ isSoldOut: false
 });
 
 renderShop();
-}
+};
 
-window.addProduct = addProduct;
-
-async function renderShop() {
+window.renderShop = async function () {
 const container = document.getElementById("shop-items-container");
 if (!container) return;
 
@@ -189,13 +181,11 @@ Osta
 </button>
 </div>`;
 });
-}
-
-window.renderShop = renderShop;
+};
 
 // ================= BUY =================
 
-async function buy(id, price, name) {
+window.buy = async function (id, price, name) {
 let bal = await getBalance(currentRole);
 
 if (bal < price) return alert("Ei varoja!");
@@ -209,18 +199,13 @@ price
 });
 
 alert("Ostopyyntö lähetetty!");
-}
+};
 
-window.buy = buy;
+// ================= ADMIN =================
 
-// ================= ADMIN PANEL (FIXED) =================
-
-async function showAdminPanel() {
-
-console.log("ADMIN CHECK ROLE:", currentRole);
-
+window.showAdminPanel = async function () {
 if (currentRole !== "Valtio") {
-alert("❌ Ei oikeuksia: vain Valtio voi käyttää tätä");
+alert("Vain Valtio");
 return;
 }
 
@@ -243,16 +228,14 @@ const r = docSnap.data();
 shopC.innerHTML += `
 <div>
 ${r.role}: ${r.item} (${r.price}€)
-<button onclick="approveShop('${docSnap.id}', '${r.role}', ${r.price})">✔ Hyväksy</button>
+<button onclick="approveShop('${docSnap.id}', '${r.role}', ${r.price})">✔</button>
 </div>`;
 });
-}
-
-window.showAdminPanel = showAdminPanel;
+};
 
 // ================= APPROVE =================
 
-async function approveShop(id, role, price) {
+window.approveShop = async function (id, role, price) {
 let bal = await getBalance(role);
 let val = await getBalance("Valtio");
 
@@ -263,13 +246,11 @@ await deleteDoc(doc(db, "pendingRequests", id));
 
 alert("Hyväksytty!");
 showAdminPanel();
-}
-
-window.approveShop = approveShop;
+};
 
 // ================= NOTIFICATIONS =================
 
-async function showNotifications() {
+window.showNotifications = async function () {
 const container = document.getElementById("all-notifications");
 if (!container) return;
 
@@ -283,13 +264,11 @@ if (n.role === currentRole) {
 container.innerHTML += `<div>${n.text}</div>`;
 }
 });
-}
-
-window.showNotifications = showNotifications;
+};
 
 // ================= SUGGESTIONS =================
 
-async function submitSuggestion() {
+window.submitSuggestion = async function () {
 await addDoc(collection(db, "suggestions"), {
 from: currentRole,
 text: devSuggestion.value,
@@ -298,11 +277,9 @@ reply: ""
 
 devSuggestion.value = "";
 alert("Lähetetty!");
-}
+};
 
-window.submitSuggestion = submitSuggestion;
-
-async function renderSuggestions() {
+window.renderSuggestions = async function () {
 const container = document.getElementById("suggestion-responses");
 if (!container) return;
 
@@ -316,9 +293,7 @@ const s = d.data();
 container.innerHTML += `
 <div style="background:#2d3748;padding:10px;margin:10px;">
 <strong>${s.from}</strong>: ${s.text}
-${s.reply ? `<p style="color:#3b82f6">${s.reply}</p>` : ""}
+${s.reply ? `<p>${s.reply}</p>` : ""}
 </div>`;
 });
-}
-
-window.renderSuggestions = renderSuggestions;
+};
