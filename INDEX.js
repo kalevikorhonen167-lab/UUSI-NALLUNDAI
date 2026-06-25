@@ -10,14 +10,16 @@ getDocs,
 deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
+// ================= FIREBASE =================
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBOhJwsdtFCMuYXbGe8Wny3yqxj_5Yw3Q4",
-    authDomain: "nallundai.firebaseapp.com",
-    projectId: "nallundai",
-    storageBucket: "nallundai.firebasestorage.app",
-    messagingSenderId: "329650534635",
-    appId: "1:329650534635:web:19002810daacf372f3e6ae",
-    measurementId: "G-2KP7K0G3VF"
+apiKey: "AIzaSyBOhJwsdtFCMuYXbGe8Wny3yqxj_5Yw3Q4",
+authDomain: "nallundai.firebaseapp.com",
+projectId: "nallundai",
+storageBucket: "nallundai.firebasestorage.app",
+messagingSenderId: "329650534635",
+appId: "1:329650534635:web:19002810daacf372f3e6ae",
+measurementId: "G-2KP7K0G3VF"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -26,17 +28,31 @@ const db = getFirestore(app);
 // ================= DATA =================
 
 const passwords = {
-"Pääministeri": "7986", "Poliisi": "8234", "Kierrättäjä": "3456",
-"Puolustusministeri": "9765", "Rajavartija": "9088", "Kirjastonhoitaja": "3537",
-"Pankkiiri": "8474", "Lääkäri": "9967", "Valtio": "1111",
-"VEPOHO-YHTYMÄ": "1234", "OSARYHTYMÄ": "5678"
+"Pääministeri": "7986",
+"Poliisi": "8234",
+"Kierrättäjä": "3456",
+"Puolustusministeri": "9765",
+"Rajavartija": "9088",
+"Kirjastonhoitaja": "3537",
+"Pankkiiri": "8474",
+"Lääkäri": "9967",
+"Valtio": "1111",
+"VEPOHO-YHTYMÄ": "1234",
+"OSARYHTYMÄ": "5678"
 };
 
 const defaultBalances = {
-"Pääministeri": 50000, "Puolustusministeri": 40000, "Pankkiiri": 30000,
-"Poliisi": 20000, "Lääkäri": 20000, "Kierrättäjä": 15000,
-"Kirjastonhoitaja": 10000, "Rajavartija": 20000, "Valtio": 20951000,
-"VEPOHO-YHTYMÄ": 50000, "OSARYHTYMÄ": 50000
+"Pääministeri": 50000,
+"Puolustusministeri": 40000,
+"Pankkiiri": 30000,
+"Poliisi": 20000,
+"Lääkäri": 20000,
+"Kierrättäjä": 15000,
+"Kirjastonhoitaja": 10000,
+"Rajavartija": 20000,
+"Valtio": 20951000,
+"VEPOHO-YHTYMÄ": 50000,
+"OSARYHTYMÄ": 50000
 };
 
 let currentRole = "";
@@ -137,7 +153,7 @@ window.processTransaction = processTransaction;
 // ================= SHOP =================
 
 async function addProduct() {
-if (currentRole !== "Valtio") return alert("Vain Valtio!");
+if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä!");
 
 await addDoc(collection(db, "shopItems"), {
 name: itemName.value,
@@ -197,10 +213,16 @@ alert("Ostopyyntö lähetetty!");
 
 window.buy = buy;
 
-// ================= ADMIN =================
+// ================= ADMIN PANEL (FIXED) =================
 
 async function showAdminPanel() {
-if (currentRole !== "Valtio") return;
+
+console.log("ADMIN CHECK ROLE:", currentRole);
+
+if (currentRole !== "Valtio") {
+alert("❌ Ei oikeuksia: vain Valtio voi käyttää tätä");
+return;
+}
 
 const balC = document.getElementById("all-balances");
 balC.innerHTML = "<h3>Saldot</h3>";
@@ -221,7 +243,7 @@ const r = docSnap.data();
 shopC.innerHTML += `
 <div>
 ${r.role}: ${r.item} (${r.price}€)
-<button onclick="approveShop('${docSnap.id}', '${r.role}', ${r.price})">✔</button>
+<button onclick="approveShop('${docSnap.id}', '${r.role}', ${r.price})">✔ Hyväksy</button>
 </div>`;
 });
 }
@@ -300,4 +322,3 @@ ${s.reply ? `<p style="color:#3b82f6">${s.reply}</p>` : ""}
 }
 
 window.renderSuggestions = renderSuggestions;
-
