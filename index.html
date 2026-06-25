@@ -772,6 +772,29 @@ function show(pageId) {
     if (document.getElementById("suggestion-responses")) renderSuggestions();
 }
 
+// --- MAKSU JA SAKKO (PÄIVITETTY) ---
+function processTransaction(multiplier) {
+    const reason = document.getElementById("transactionReason").value;
+    const target = document.getElementById("targetRole").value;
+    const amount = parseInt(document.getElementById("globalAmount").value);
+
+    if (!reason || isNaN(amount) || amount <= 0) return alert("Täytä perustelu ja summa!");
+
+    let targetBal = parseInt(localStorage.getItem("balance_" + target)) || defaultBalances[target];
+
+    if (multiplier === 1) { 
+        // MAKSU: Vain lisäys vastaanottajalle
+        localStorage.setItem("balance_" + target, targetBal + amount);
+        alert("Maksu suoritettu: " + amount + "€ lisätty tilille " + target);
+    } else { 
+        // SAKKO: Vain vähennys uhrilta
+        if (targetBal < amount) return alert("Kohteella ei ole tarpeeksi varoja sakkoon!");
+        localStorage.setItem("balance_" + target, targetBal - amount);
+        alert("Sakko määrätty: " + amount + "€ poistettu kohteelta " + target);
+    }
+    location.reload();
+}
+
 // --- KAUPPA ---
 function addProduct() {
     if (currentRole !== "Valtio") return alert("Vain Valtio voi lisätä tuotteita!");
@@ -849,7 +872,6 @@ function buy(price, name) {
     } else { alert("Ei riittävästi varoja!"); }
 }
 
-// --- OMAISUUSSIIRROT ---
 function submitTransferRequest() {
     let to = document.getElementById("transferTo").value;
     let amount = document.getElementById("transferAmount").value;
@@ -864,9 +886,8 @@ function submitTransferRequest() {
     alert("Siirtopyyntö lähetetty Valtiolle!");
 }
 
-function renderMyTransferRequests() { /* Lisäpaikka toiminnoille */ }
+function renderMyTransferRequests() { }
 
-// --- HALLINTA JA HYVÄKSYNNÄT ---
 function showAdminPanel() {
     if (currentRole !== "Valtio") return;
     document.getElementById("admin-content").style.display = "block";
@@ -936,7 +957,6 @@ function rejectShopReq(i) {
     showAdminPanel();
 }
 
-// --- ILMOITUKSET ---
 function showNotifications() {
     const container = document.getElementById("all-notifications");
     if (!container) return;
@@ -952,7 +972,6 @@ function dismissNotif(i) {
     showNotifications();
 }
 
-// --- KEHITYSIDEAT ---
 function submitSuggestion() {
     let text = document.getElementById("devSuggestion").value;
     if (!text) return alert("Kirjoita ensin idea!");
@@ -998,4 +1017,4 @@ function deleteSuggestion(i) {
     localStorage.setItem("devSuggestions", JSON.stringify(suggestions));
     renderSuggestions();
 }
-</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
